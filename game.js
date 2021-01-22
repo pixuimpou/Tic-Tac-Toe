@@ -1,6 +1,6 @@
 let turn = "x";
 let player = { "x": [], "o": [] };
-let win = [
+let winConditions = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -31,14 +31,15 @@ const nextTurn = () => {
     }
 }
 
+
 const isGameOver = () => {
-    for (let p of win) {
+    for (let p of winConditions) {
         if (selecteds[p[0]].by === selecteds[p[1]].by && selecteds[p[0]].by === selecteds[p[2]].by 
             && selecteds[p[0]].by !== "none") {
                 return true;
             }
     }
-    return false;selecteds
+    return false;
     
 }
 
