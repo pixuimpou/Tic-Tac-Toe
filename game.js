@@ -40,9 +40,19 @@ const checkSequences = (s) => {
     return false;
 }
 
+const checkDraw = () => {
+    if (selecteds[1].isSelected === true && selecteds[2].isSelected === true && selecteds[3].isSelected === true &&
+        selecteds[4].isSelected === true && selecteds[5].isSelected === true && selecteds[6].isSelected === true &&
+        selecteds[7].isSelected === true && selecteds[8].isSelected === true && selecteds[9].isSelected === true) {
+            return true;
+        } else {
+            return false;
+        }
+}
+
 const isGameOver = () => {
     for (let item of winConditions) {
-        if (checkSequences(item)) {
+        if (checkSequences(item) || checkDraw()) {
             return true;
         }
     }
