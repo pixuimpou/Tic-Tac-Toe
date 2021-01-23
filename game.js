@@ -1,5 +1,4 @@
 let turn = "x";
-//let player = { "x": [], "o": [] };
 let winConditions = [
     [1, 2, 3],
     [4, 5, 6],
@@ -56,14 +55,10 @@ const handlePlays = (square) => {
     
     if(selecteds[parseInt(square.id)].isSelected === false) {
 
-        //player[turn].push(parseInt(square.id));
-
         selecteds[parseInt(square.id)].isSelected = true;
         selecteds[parseInt(square.id)].by = turn;
 
-        if (isGameOver()) {
-            console.log("Game Over");
-        } else {
+        if (isGameOver() === false) {
         nextTurn();
         console.log(turn);
         }
