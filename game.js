@@ -32,22 +32,30 @@ const nextTurn = () => {
 
 
 const checkSequences = (s) => {
+
     if (selecteds[s[0]].by === selecteds[s[1]].by && selecteds[s[0]].by === selecteds[s[2]].by
         && selecteds[s[0]].by !== "none") {
         return true;
     }
-
     return false;
+
 }
 
 const checkDraw = () => {
-    if (selecteds[1].isSelected === true && selecteds[2].isSelected === true && selecteds[3].isSelected === true &&
-        selecteds[4].isSelected === true && selecteds[5].isSelected === true && selecteds[6].isSelected === true &&
-        selecteds[7].isSelected === true && selecteds[8].isSelected === true && selecteds[9].isSelected === true) {
-            return true;
-        } else {
+
+    for(let i = 1; i <= squares.length; i++ ){
+        if(!selecteds[i].isSelected){
             return false;
         }
+    }
+    
+    for(let item of winConditions) {
+        if (checkSequences(item)) {
+            return false;
+        }
+    }
+    return true
+
 }
 
 const isGameOver = () => {
@@ -68,9 +76,8 @@ const handlePlays = (square) => {
         selecteds[parseInt(square.id)].isSelected = true;
         selecteds[parseInt(square.id)].by = turn;
 
-        if (isGameOver() === false) {
+        if (!isGameOver()) {
         nextTurn();
-        console.log(turn);
         }
     }
 }

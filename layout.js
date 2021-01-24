@@ -2,8 +2,7 @@ container = document.getElementById("container");
 
 const annouceWinner = () => {
 
-    if(isGameOver()) {
-
+   
         if(checkDraw()){
             container.innerHTML += `<div class="winner" id="popUp">
                                     <h2>The game is a tie</h2>
@@ -15,7 +14,6 @@ const annouceWinner = () => {
                                     <div class="btn" onclick="resetBoard()">Play Again</div>
                                 </div>`;
         }                            
-    }
 }
 
 
@@ -28,7 +26,9 @@ const makeMove = (square) => {
     }
 
     handlePlays(square);
-    annouceWinner();
+    if (isGameOver()) {
+        annouceWinner();
+    }
 }
 
 const resetBoard = () => {
