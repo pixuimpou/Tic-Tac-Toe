@@ -1,5 +1,4 @@
 let turn = "x";
-let player = { "x": [], "o": [] };
 let winConditions = [
     [1, 2, 3],
     [4, 5, 6],
@@ -32,31 +31,52 @@ const nextTurn = () => {
 }
 
 
+const checkSequences = (s) => {
+    if (selecteds[s[0]].by === selecteds[s[1]].by && selecteds[s[0]].by === selecteds[s[2]].by
+        && selecteds[s[0]].by !== "none") {
+        return true;
+    }
+
+    return false;
+}
+
 const isGameOver = () => {
-    for (let p of winConditions) {
-        if (selecteds[p[0]].by === selecteds[p[1]].by && selecteds[p[0]].by === selecteds[p[2]].by 
-            && selecteds[p[0]].by !== "none") {
-                return true;
-            }
+    for (let item of winConditions) {
+        if (checkSequences(item)) {
+            return true;
+        }
     }
     return false;
-    
+
 }
+
 
 const handlePlays = (square) => {
     
     if(selecteds[parseInt(square.id)].isSelected === false) {
 
-        player[turn].push(parseInt(square.id));
-
         selecteds[parseInt(square.id)].isSelected = true;
         selecteds[parseInt(square.id)].by = turn;
 
-        if (isGameOver()) {
-            console.log("Game Over");
-        } else {
+        if (isGameOver() === false) {
         nextTurn();
         console.log(turn);
         }
     }
+}
+
+const handleReset = () => {
+    turn = "x";
+    
+    selecteds = {
+        1: { isSelected: false, by: "none" },
+        2: { isSelected: false, by: "none" },
+        3: { isSelected: false, by: "none" },
+        4: { isSelected: false, by: "none" },
+        5: { isSelected: false, by: "none" },
+        6: { isSelected: false, by: "none" },
+        7: { isSelected: false, by: "none" },
+        8: { isSelected: false, by: "none" },
+        9: { isSelected: false, by: "none" }
+    };
 }
