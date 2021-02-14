@@ -32,17 +32,35 @@ const nextTurn = () => {
 
 
 const checkSequences = (s) => {
+
     if (selecteds[s[0]].by === selecteds[s[1]].by && selecteds[s[0]].by === selecteds[s[2]].by
         && selecteds[s[0]].by !== "none") {
         return true;
     }
-
     return false;
+
+}
+
+const checkDraw = () => {
+
+    for(let i = 1; i <= squares.length; i++ ){
+        if(!selecteds[i].isSelected){
+            return false;
+        }
+    }
+    
+    for(let item of winConditions) {
+        if (checkSequences(item)) {
+            return false;
+        }
+    }
+    return true
+
 }
 
 const isGameOver = () => {
     for (let item of winConditions) {
-        if (checkSequences(item)) {
+        if (checkSequences(item) || checkDraw()) {
             return true;
         }
     }
@@ -58,9 +76,8 @@ const handlePlays = (square) => {
         selecteds[parseInt(square.id)].isSelected = true;
         selecteds[parseInt(square.id)].by = turn;
 
-        if (isGameOver() === false) {
+        if (!isGameOver()) {
         nextTurn();
-        console.log(turn);
         }
     }
 }

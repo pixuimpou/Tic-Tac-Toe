@@ -1,14 +1,19 @@
 container = document.getElementById("container");
 
 const annouceWinner = () => {
-    if(isGameOver()) {
 
-        container.innerHTML += `<div class="winner" id="popUp">
+   
+        if(checkDraw()){
+            container.innerHTML += `<div class="winner" id="popUp">
+                                    <h2>The game is a tie</h2>
+                                    <div class="btn" onclick="resetBoard()">Play Again</div>
+                                </div>`;
+        } else {
+            container.innerHTML += `<div class="winner" id="popUp">
                                     <h2>The ${turn.toUpperCase()} won</h2>
                                     <div class="btn" onclick="resetBoard()">Play Again</div>
                                 </div>`;
-                            
-    }
+        }                            
 }
 
 
@@ -21,7 +26,9 @@ const makeMove = (square) => {
     }
 
     handlePlays(square);
-    annouceWinner();
+    if (isGameOver()) {
+        annouceWinner();
+    }
 }
 
 const resetBoard = () => {
